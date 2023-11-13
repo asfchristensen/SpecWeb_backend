@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @CrossOrigin
 @RestController
-@RequestMapping("organizers")
+@RequestMapping("organizer/organizers")
 public class OrganizerController {
     @Autowired
     private OrganizerService organizerService;
@@ -22,6 +22,10 @@ public class OrganizerController {
         return ResponseEntity.ok(organizerService.findAll());
     }
 
+
+
+
+    /*
     @GetMapping("/{id}")
     public ResponseEntity getByID(@PathVariable("id") long id){
         Optional<Organizer> organizer = organizerService.findById(id);
@@ -32,5 +36,7 @@ public class OrganizerController {
             return new ResponseEntity<>("No Organizer found", HttpStatus.BAD_REQUEST);
         }
     }
+    */
+
 
 }

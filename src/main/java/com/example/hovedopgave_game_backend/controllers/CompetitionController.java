@@ -1,8 +1,10 @@
 package com.example.hovedopgave_game_backend.controllers;
 
 import com.example.hovedopgave_game_backend.models.Competition;
+import com.example.hovedopgave_game_backend.models.Organizer;
 import com.example.hovedopgave_game_backend.repositories.CompetitionRepo;
 import com.example.hovedopgave_game_backend.services.CompetitionService;
+import com.example.hovedopgave_game_backend.services.OrganizerService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import org.apache.coyote.Response;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -20,9 +23,11 @@ import java.util.Optional;
 @RequestMapping("organizer/competitions")
 public class CompetitionController {
     private CompetitionService competitionService;
+    private OrganizerService organizerService;
 
-    public CompetitionController(CompetitionService competitionService) {
+    public CompetitionController(CompetitionService competitionService, OrganizerService organizerService) {
         this.competitionService = competitionService;
+        this.organizerService = organizerService;
     }
 
     @GetMapping
@@ -38,6 +43,18 @@ public class CompetitionController {
         } else {
             System.out.println("No competition found with id: " + id);
             return new ResponseEntity<>("No Competition found", HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping("/token-id/{tokenId}")
+    public ResponseEntity getByTokenID(@PathVariable("tokenId") String tokenId){
+        Optional<Organizer> organizer = organizerService.findByTokenId(tokenId);
+        if (organizer.isPresent()) {
+            long organizerId = organizer.get().getId();
+            List<Competition> competitions = competitionService.getAllByOrganizer_Id(organizerId);
+            return new ResponseEntity<>(competitions, HttpStatus.OK);
+        } else {
+            System.out.println("No Organizer found with token_id: " + tokenId);
+            return new ResponseEntity<>("No Organizer found", HttpStatus.BAD_REQUEST);
         }
     }
 
