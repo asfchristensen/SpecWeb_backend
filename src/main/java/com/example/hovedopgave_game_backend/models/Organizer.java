@@ -16,6 +16,8 @@ public class Organizer {
     private Long id;
     private String mail;
     private String password;
+    @Column(name = "token_id")
+    private String tokenId;
 
 
     @OneToMany(mappedBy = "organizer")

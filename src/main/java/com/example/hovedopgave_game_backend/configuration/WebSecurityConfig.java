@@ -40,8 +40,11 @@ public class WebSecurityConfig {
                             .toList();
 
                     //id to be saved in the DB
-                    String id = jwt.getClaim("sid");
-                    System.out.println("ID from token " + id);
+                    //String id = jwt.getClaim("sid");
+                    //System.out.println("ID from token " + id);
+
+                    String subID = jwt.getClaim("sub");
+                    System.out.println("Specific user id " + subID);
 
                     return new JwtAuthenticationToken(jwt, grantedAuthorities);
                 })));
