@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @CrossOrigin
 @RestController
-@RequestMapping("competitions")
+@RequestMapping("organizer/competitions")
 public class CompetitionController {
     private CompetitionService competitionService;
 

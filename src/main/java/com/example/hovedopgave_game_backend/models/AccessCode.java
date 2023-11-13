@@ -12,7 +12,7 @@ public class AccessCode {
     private long id;
     private String code;
     @Column(name = "is_activated")
-    private boolean isActived;
+    private boolean isActivated;
     // Many access codes to one competition
     @ManyToOne
     @JoinColumn(name = "competition_id")

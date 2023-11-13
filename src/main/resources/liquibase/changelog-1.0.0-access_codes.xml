@@ -19,11 +19,9 @@
                              unique="false"
                              deleteCascade="true"/>
             </column>
-            <column name="is_activated" type="varchar(255)" >
+            <column name="is_activated" type="boolean" >
                 <constraints/>
             </column>
-
-
         </createTable>
     </changeSet>
 
