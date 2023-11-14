@@ -2,11 +2,9 @@ package com.example.hovedopgave_game_backend.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +12,7 @@ import java.util.List;
 //@Data
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @Entity
 @Table(name = "quizzes")
@@ -25,22 +24,25 @@ public class Quiz {
 
     // Quizzes can have one spectator/winner
     @ManyToOne
+    @Nullable
     @JoinColumn(name = "spectator_id")
     private Spectator spectator;
     // Quizzes can have one competition
     @ManyToOne
     @JoinColumn(name = "competition_id")
-    @JsonBackReference
+
     private Competition competition;
     //Quizzes can have one state
     @ManyToOne
     @JoinColumn(name = "state_id")
-    @JsonBackReference
+
     private State state;
 
     // One Quiz can have many answers
     @OneToMany(mappedBy = "quiz")
-    @JsonBackReference
+
     private List<Answer> answers = new ArrayList<>();
+
+
 
 }

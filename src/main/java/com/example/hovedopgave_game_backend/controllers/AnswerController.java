@@ -39,5 +39,11 @@ public class AnswerController {
         return ResponseEntity.ok(answerService.getAnswerByQuizId(quizId));
     }
 
+    @PostMapping()
+    public ResponseEntity createAnswer(@RequestBody Answer answer){
+        answerService.save(answer);
+        return new ResponseEntity(answer, HttpStatus.CREATED);
+    }
+
 
 }

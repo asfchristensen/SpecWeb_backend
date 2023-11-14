@@ -1,6 +1,7 @@
 package com.example.hovedopgave_game_backend.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,14 +25,14 @@ public class Competition {
 
     @ManyToOne
     @JoinColumn(name = "organizer_id")
-    @JsonBackReference
+    @JsonIgnore
     private Organizer organizer;
 
     @OneToMany(mappedBy = "competition")
-    @JsonBackReference
+    @JsonIgnore
     private List<Quiz> quizzes = new ArrayList<>();
 
     @OneToMany(mappedBy = "competition")
-    @JsonBackReference
+    @JsonIgnore
     private List<AccessCode> accessCodes = new ArrayList<>();
 }

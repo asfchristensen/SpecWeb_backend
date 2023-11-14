@@ -3,8 +3,10 @@ package com.example.hovedopgave_game_backend.controllers;
 import com.example.hovedopgave_game_backend.models.Quiz;
 import com.example.hovedopgave_game_backend.services.QuizService;
 import jakarta.ws.rs.*;
+import jdk.jfr.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,13 +16,13 @@ import java.util.Optional;
 
 @CrossOrigin
 @RestController
-@RequestMapping("organizer")
+@RequestMapping("organizer/quizzes")
 public class QuizController {
     @Autowired
     private QuizService quizService;
 
 
-    @GetMapping("/organizer")
+    @GetMapping()
     public ResponseEntity getAll(){
         return ResponseEntity.ok(quizService.findAll());
     }
@@ -37,12 +39,10 @@ public class QuizController {
     }
 
 
-    @POST
-    @Path("/quizzes")
-    @Produces("application/json")
-    @Consumes("application/json")
-    public ResponseEntity create(Quiz quiz){
-        System.out.println("quiz create: " + quiz);
+
+    @PostMapping()
+    public ResponseEntity create(@RequestBody Quiz quiz){
+        System.out.println("quiz create: " + quiz.toString());
         Map<String, String> message = new HashMap<>();
         if (quiz != null){
             quizService.save(quiz);
