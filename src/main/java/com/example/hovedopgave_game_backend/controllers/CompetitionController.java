@@ -2,13 +2,8 @@ package com.example.hovedopgave_game_backend.controllers;
 
 import com.example.hovedopgave_game_backend.models.Competition;
 import com.example.hovedopgave_game_backend.models.Organizer;
-import com.example.hovedopgave_game_backend.repositories.CompetitionRepo;
 import com.example.hovedopgave_game_backend.services.CompetitionService;
 import com.example.hovedopgave_game_backend.services.OrganizerService;
-import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import org.apache.coyote.Response;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
