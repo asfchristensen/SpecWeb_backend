@@ -8,4 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OrganizerRepo extends JpaRepository<Organizer, Long> {
+    Optional<Organizer> findByTokenId(String id);
 }
