@@ -7,7 +7,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -43,13 +47,26 @@ public class WebSecurityConfig {
                     //String id = jwt.getClaim("sid");
                     //System.out.println("ID from token " + id);
 
+                    String token = jwt.getTokenValue();
+                    System.out.println("access token " + token);
+
                     String subID = jwt.getClaim("sub");
                     System.out.println("Specific user id " + subID);
 
                     return new JwtAuthenticationToken(jwt, grantedAuthorities);
                 })));
-
+        httpSecurity.cors();
         //returns the SecurityFilterChain
         return httpSecurity.build();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://localhost:8080"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
