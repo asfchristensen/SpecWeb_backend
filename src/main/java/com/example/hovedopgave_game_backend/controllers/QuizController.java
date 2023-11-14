@@ -54,7 +54,6 @@ public class QuizController {
     @PutMapping()
     public ResponseEntity updateQuiz(@RequestBody Quiz newQuiz){
         if(quizService.findById(newQuiz.getId()).isPresent()){
-            System.out.println("1");
             Quiz oldQuiz = quizService.findById(newQuiz.getId()).get();
             oldQuiz.setQuestion(newQuiz.getQuestion());
             oldQuiz.setSpectator(newQuiz.getSpectator());
