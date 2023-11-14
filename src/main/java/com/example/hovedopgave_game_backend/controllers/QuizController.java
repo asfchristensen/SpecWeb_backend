@@ -38,8 +38,6 @@ public class QuizController {
         }
     }
 
-
-
     @PostMapping()
     public ResponseEntity create(@RequestBody Quiz quiz){
         System.out.println("quiz create: " + quiz.toString());
@@ -51,6 +49,21 @@ public class QuizController {
             message.put("Message", "Failed to create Quiz: " + quiz);
         }
         return ResponseEntity.ok(message);
+    }
+
+    @PutMapping()
+    public ResponseEntity updateQuiz(@RequestBody Quiz newQuiz){
+        if(quizService.findById(newQuiz.getId()).isPresent()){
+            System.out.println("1");
+            Quiz oldQuiz = quizService.findById(newQuiz.getId()).get();
+            oldQuiz.setQuestion(newQuiz.getQuestion());
+            oldQuiz.setSpectator(newQuiz.getSpectator());
+            oldQuiz.setState(newQuiz.getState());
+            quizService.save(oldQuiz);
+            return new ResponseEntity(oldQuiz, HttpStatus.OK);
+        } else {
+            return new ResponseEntity("not updated", HttpStatus.BAD_REQUEST);
+        }
     }
 
     //quiz med tilhørende answers slettes
