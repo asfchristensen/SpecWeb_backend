@@ -52,4 +52,17 @@ public class QuizController {
         }
         return ResponseEntity.ok(message);
     }
+
+    //quiz med tilhørende answers slettes
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteQuiz(@PathVariable ("id") long id){
+        Map<String, String> message = new HashMap<>();
+        if(quizService.findById(id).isPresent()){
+            quizService.deleteById(id);
+            message.put("Message", "quiz deleted with id " + id );
+        }else {
+            message.put("Message", "no quiz with id " + id );
+        }
+        return ResponseEntity.ok(message);
+    }
 }
