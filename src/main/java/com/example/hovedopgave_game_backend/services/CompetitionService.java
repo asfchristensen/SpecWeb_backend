@@ -12,6 +12,8 @@ import java.util.Optional;
 public class CompetitionService implements ICompetitionService {
     @Autowired
     private CompetitionRepo competitionRepo;
+    @Autowired
+    private OrganizerService organizerService;
 
     @Override
     public List<Competition> findAll() {
@@ -38,4 +40,8 @@ public class CompetitionService implements ICompetitionService {
         return competitionRepo.save(competition);
     }
 
+    @Override
+    public List<Competition> getAllByOrganizer_Id(long id) {
+        return competitionRepo.getAllByOrganizer_Id(id);
+    }
 }
