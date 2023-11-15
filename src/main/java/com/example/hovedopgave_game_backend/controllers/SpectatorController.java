@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @CrossOrigin
 @RestController
-@RequestMapping("spectators")
+@RequestMapping("spectator/spectators")
 public class SpectatorController {
     @Autowired
     private SpectatorService spectatorService;

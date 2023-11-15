@@ -31,6 +31,4 @@ public class StateController {
             return new ResponseEntity<>("No State found", HttpStatus.BAD_REQUEST);
         }
     }
-
-
 }
