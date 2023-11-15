@@ -5,6 +5,6 @@ import com.example.hovedopgave_game_backend.models.Organizer;
 import java.util.Optional;
 
 public interface IOrganizerService extends CRUDService <Organizer, Long>{
-    Optional<Organizer> findByTokenId(String id);
+    Optional<Organizer> findByTokenId(String tokenId);
 
 }

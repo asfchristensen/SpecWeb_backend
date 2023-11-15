@@ -30,8 +30,8 @@ public class WebSecurityConfig {
         httpSecurity
                 .authorizeHttpRequests(registry -> registry
                         .requestMatchers("/spectator/**").hasRole("user")
-                        .requestMatchers("/organizer/**").hasRole("organizer")
-                        .anyRequest().authenticated()
+                        //.requestMatchers("/organizer/**").hasRole("organizer")
+                        .anyRequest().permitAll()
                 )
                 .oauth2ResourceServer(oauth2Configurer -> oauth2Configurer.jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwt -> {
                     //jwt = jason web token - getclaim - claims the key value
