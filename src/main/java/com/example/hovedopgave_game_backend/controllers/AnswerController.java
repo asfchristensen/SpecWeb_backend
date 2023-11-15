@@ -38,6 +38,4 @@ public class AnswerController {
     public ResponseEntity getByQuizID(@PathVariable("quizId")long quizId){
         return ResponseEntity.ok(answerService.getAnswerByQuizId(quizId));
     }
-
-
 }
