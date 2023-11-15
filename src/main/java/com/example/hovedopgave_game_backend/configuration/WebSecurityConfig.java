@@ -7,6 +7,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Collection;
 import java.util.List;
@@ -23,7 +26,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
-                .authorizeHttpRequests(registry -> registry
+            .authorizeHttpRequests(registry -> registry
                         .requestMatchers("/spectator/**").hasRole("user")
                         .requestMatchers("/organizer/**").hasRole("organizer")
                         .anyRequest().authenticated()
@@ -48,8 +51,8 @@ public class WebSecurityConfig {
 
                     return new JwtAuthenticationToken(jwt, grantedAuthorities);
                 })));
-
         //returns the SecurityFilterChain
+
         return httpSecurity.build();
     }
 }
