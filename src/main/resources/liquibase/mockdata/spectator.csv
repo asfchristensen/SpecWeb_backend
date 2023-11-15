@@ -1,3 +1,4 @@
 username,mail,token_id
-bob,bob@mail.com,bob123
-alice,alice@mail.com,alice123
+user1,bob@mail.com,068992f3-5085-4d64-b332-1c170c3461b8
+user2,alice@mail.com,alice123,dd9b8cc9-f8d1-4d64-aedf-324d218375f3
+user3,user3@mail.com,alice123,91dbec1c-115e-4bc6-9ef6-ce2414952a88
