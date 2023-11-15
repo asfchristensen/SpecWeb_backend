@@ -1,6 +1,7 @@
 package com.example.hovedopgave_game_backend.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +17,6 @@ public class State {
     private long id;
     private String state;
     @OneToMany(mappedBy = "state")
-    @JsonBackReference
+    @JsonIgnore
     private List<Quiz> quizzes = new ArrayList<>();
 }

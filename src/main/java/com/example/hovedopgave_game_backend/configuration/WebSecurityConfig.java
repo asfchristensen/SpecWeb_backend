@@ -27,7 +27,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
-                .authorizeHttpRequests(registry -> registry
+            .authorizeHttpRequests(registry -> registry
                         .requestMatchers("/spectator/**").hasRole("user")
                         .requestMatchers("/organizer/**").hasRole("organizer")
                         .anyRequest().authenticated()
@@ -47,6 +47,7 @@ public class WebSecurityConfig {
                     //String id = jwt.getClaim("sid");
                     //System.out.println("ID from token " + id);
 
+
                     String token = jwt.getTokenValue();
                     System.out.println("access token " + token);
 
@@ -55,10 +56,10 @@ public class WebSecurityConfig {
 
                     return new JwtAuthenticationToken(jwt, grantedAuthorities);
                 })));
-        httpSecurity.cors();
-        //returns the SecurityFilterChain
+        httpSecurity.cors();//returns the SecurityFilterChain
         return httpSecurity.build();
     }
+
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {

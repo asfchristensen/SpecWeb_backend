@@ -39,4 +39,9 @@ public class OrganizerService implements IOrganizerService {
     public Optional<Organizer> findById(Long id) {
         return organizerRepo.findById(id);
     }
+
+    @Override
+    public Optional<Organizer> findByTokenId(String tokenId) {
+        return organizerRepo.findByTokenId(tokenId);
+    }
 }

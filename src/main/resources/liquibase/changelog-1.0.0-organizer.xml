@@ -15,7 +15,9 @@
             <column name="password" type="varchar(255)">
                 <constraints />
             </column>
-
+            <column name="token_id" type="varchar(255)">
+                <constraints />
+            </column>
 
         </createTable>
     </changeSet>
