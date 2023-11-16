@@ -29,8 +29,8 @@ public class WebSecurityConfig {
         httpSecurity
             .authorizeHttpRequests(registry -> registry
                         .requestMatchers("/spectator/**").hasRole("user")
-                        .requestMatchers("/organizer/**").hasRole("organizer")
-                        .anyRequest().authenticated()
+                        //.requestMatchers("/organizer/**").hasRole("organizer")
+                        .anyRequest().permitAll()
                 )
                 .oauth2ResourceServer(oauth2Configurer -> oauth2Configurer.jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwt -> {
                     //jwt = jason web token - getclaim - claims the key value
@@ -47,7 +47,6 @@ public class WebSecurityConfig {
                     //String id = jwt.getClaim("sid");
                     //System.out.println("ID from token " + id);
 
-
                     String token = jwt.getTokenValue();
                     System.out.println("access token " + token);
 
@@ -56,10 +55,10 @@ public class WebSecurityConfig {
 
                     return new JwtAuthenticationToken(jwt, grantedAuthorities);
                 })));
-        httpSecurity.cors();//returns the SecurityFilterChain
+        httpSecurity.cors();
+        //returns the SecurityFilterChain
         return httpSecurity.build();
     }
-
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
@@ -72,3 +71,5 @@ public class WebSecurityConfig {
         return source;
     }
 }
+
+
