@@ -44,6 +44,7 @@ public class CompetitionController {
     }
     @GetMapping("/token-id/{tokenId}")
     public ResponseEntity getByTokenID(@PathVariable("tokenId") String tokenId){
+
         Optional<Organizer> organizer = organizerService.findByTokenId(tokenId);
         if (organizer.isPresent()) {
             long organizerId = organizer.get().getId();

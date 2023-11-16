@@ -46,6 +46,14 @@ public class AnswerController {
         return new ResponseEntity(answer, HttpStatus.CREATED);
     }
 
+    @PostMapping("answers")
+    public ResponseEntity createAnswers(@RequestBody List<Answer> answers){
+        for (int i = 0; i < answers.size(); i++) {
+            answerService.save(answers.get(i));
+        }
+        return new ResponseEntity(answers, HttpStatus.CREATED);
+    }
+
     @PutMapping()
     public ResponseEntity updateAnswersForAQuiz(@RequestBody List<Answer> answers){
         List<Answer> newAnswers = new ArrayList<>();
