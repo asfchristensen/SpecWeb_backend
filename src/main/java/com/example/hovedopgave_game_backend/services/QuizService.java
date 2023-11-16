@@ -37,4 +37,9 @@ public class QuizService implements IQuizService {
     public Optional<Quiz> findById(Long id) {
         return quizRepo.findById(id);
     }
+
+    @Override
+    public List<Quiz> findAllByCompetitionId(long competitionId) {
+        return quizRepo.findAllByCompetitionId(competitionId);
+    }
 }

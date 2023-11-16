@@ -1,5 +1,6 @@
 package com.example.hovedopgave_game_backend.controllers;
 
+import com.example.hovedopgave_game_backend.models.Answer;
 import com.example.hovedopgave_game_backend.models.Organizer;
 import com.example.hovedopgave_game_backend.repositories.OrganizerRepo;
 import com.example.hovedopgave_game_backend.services.OrganizerService;
@@ -20,6 +21,17 @@ public class OrganizerController {
     @GetMapping
     public ResponseEntity getAll(){
         return ResponseEntity.ok(organizerService.findAll());
+    }
+
+    @GetMapping("/{tokenId}")
+    public ResponseEntity getByID(@PathVariable("tokenId") String tokenId){
+        Optional<Organizer> organizer = organizerService.findByTokenId(tokenId);
+        if (organizer.isPresent()) {
+            return new ResponseEntity<>(organizer.get().getId(), HttpStatus.OK);
+        } else {
+            System.out.println("No Organizer found with id: " + tokenId);
+            return new ResponseEntity<>("No Organizer found", HttpStatus.BAD_REQUEST);
+        }
     }
 
 

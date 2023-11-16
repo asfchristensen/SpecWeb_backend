@@ -14,7 +14,7 @@ import java.util.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping("answers")
+@RequestMapping("organizer/answers")
 public class AnswerController {
     @Autowired
     private AnswerService answerService;

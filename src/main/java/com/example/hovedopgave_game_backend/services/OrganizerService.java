@@ -40,6 +40,7 @@ public class OrganizerService implements IOrganizerService {
         return organizerRepo.findById(id);
     }
 
+
     @Override
     public Optional<Organizer> findByTokenId(String tokenId) {
         return organizerRepo.findByTokenId(tokenId);

@@ -2,11 +2,8 @@ package com.example.hovedopgave_game_backend.controllers;
 
 import com.example.hovedopgave_game_backend.models.Quiz;
 import com.example.hovedopgave_game_backend.services.QuizService;
-import jakarta.ws.rs.*;
-import jdk.jfr.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,18 +34,20 @@ public class QuizController {
             return new ResponseEntity<>("No Quiz found", HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping("/competition/{compId}")
+    public ResponseEntity getByCompetitionID(@PathVariable("compId") long compId){
+        return ResponseEntity.ok(quizService.findAllByCompetitionId(compId));
+    }
 
     @PostMapping()
     public ResponseEntity create(@RequestBody Quiz quiz){
         System.out.println("quiz create: " + quiz.toString());
-        Map<String, String> message = new HashMap<>();
         if (quiz != null){
             quizService.save(quiz);
-            message.put("Message", "Competition is quiz " + quiz );
+            return new ResponseEntity<>(quiz, HttpStatus.CREATED);
         } else {
-            message.put("Message", "Failed to create Quiz: " + quiz);
+            return new ResponseEntity<>("Failed to create Quiz: ", HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok(message);
     }
 
     @PutMapping()
