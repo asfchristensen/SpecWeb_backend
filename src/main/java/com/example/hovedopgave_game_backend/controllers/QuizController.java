@@ -55,8 +55,12 @@ public class QuizController {
         if(quizService.findById(newQuiz.getId()).isPresent()){
             Quiz oldQuiz = quizService.findById(newQuiz.getId()).get();
             oldQuiz.setQuestion(newQuiz.getQuestion());
-            oldQuiz.setSpectator(newQuiz.getSpectator());
-            oldQuiz.setState(newQuiz.getState());
+            if(newQuiz.getSpectator() != null){
+                oldQuiz.setSpectator(newQuiz.getSpectator());
+            }
+            if (newQuiz.getState() != null){
+                oldQuiz.setState(newQuiz.getState());
+            }
             quizService.save(oldQuiz);
             return new ResponseEntity(oldQuiz, HttpStatus.OK);
         } else {
