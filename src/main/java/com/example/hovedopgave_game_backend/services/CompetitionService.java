@@ -34,7 +34,6 @@ public class CompetitionService implements ICompetitionService {
         competitionRepo.deleteById(id);
     }
 
-
     @Override
     public Competition save(Competition competition) {
         return competitionRepo.save(competition);

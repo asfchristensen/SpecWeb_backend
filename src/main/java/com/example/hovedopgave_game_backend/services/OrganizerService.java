@@ -32,7 +32,6 @@ public class OrganizerService implements IOrganizerService {
     @Override
     public void deleteById(Long id) {
         organizerRepo.deleteById(id);
-
     }
 
     @Override

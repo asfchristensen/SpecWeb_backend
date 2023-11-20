@@ -65,9 +65,6 @@ public class AnswerController {
                 oldAnswer.setCorrect(newAnswer.isCorrect());
                 answerService.save(oldAnswer);
                 newAnswers.add(oldAnswer);
-
-            } else {
-
             }
         }
         return new ResponseEntity(newAnswers, HttpStatus.OK);
