@@ -25,13 +25,11 @@ public class AccessCodeController {
     public ResponseEntity updateAccessCode(@RequestBody AccessCode accessCodeToUpdate) {
         Optional<AccessCode> accessCode_ = accessCodeService.findById(accessCodeToUpdate.getId());
         if (accessCode_.isPresent()) {
+
             accessCodeService.save(accessCodeToUpdate);
             return new ResponseEntity<>(accessCodeService.findAll(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
-
     }
-
 }
