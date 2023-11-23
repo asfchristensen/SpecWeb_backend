@@ -1,9 +1,14 @@
 package com.example.hovedopgave_game_backend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 @Entity
 @Table(name = "access_codes")
 public class AccessCode {
@@ -17,4 +22,8 @@ public class AccessCode {
     @ManyToOne
     @JoinColumn(name = "competition_id")
     private Competition competition;
+
+    @ManyToOne
+    @JoinColumn(name = "spectator_id")
+    private Spectator spectator;
 }

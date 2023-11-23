@@ -1,5 +1,6 @@
 package com.example.hovedopgave_game_backend.services;
 
+import com.example.hovedopgave_game_backend.models.Organizer;
 import com.example.hovedopgave_game_backend.models.Spectator;
 import com.example.hovedopgave_game_backend.repositories.SpectatorRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,9 @@ public class SpectatorService implements ISpectatorService {
     @Override
     public Optional<Spectator> findById(Long id) {
         return spectatorRepo.findById(id);
+    }
+
+    public Optional<Spectator> findByTokenId(String tokenId) {
+        return spectatorRepo.findByTokenId(tokenId);
     }
 }
