@@ -30,7 +30,6 @@ public class WebSecurityConfig {
             .authorizeHttpRequests(registry -> registry
                         .requestMatchers("/spectator/**").hasRole("user")
                         .requestMatchers("/organizer/**").hasRole("organizer")
-                        //.anyRequest().permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2Configurer -> oauth2Configurer.jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwt -> {

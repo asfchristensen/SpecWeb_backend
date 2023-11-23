@@ -1,11 +1,15 @@
 package com.example.hovedopgave_game_backend.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.ToString;
 
-@Data
+import lombok.*;
+
+
+
+@Getter
+@Setter
 @ToString
+@NoArgsConstructor
 @Entity
 @Table(name = "access_codes")
 public class AccessCode {
