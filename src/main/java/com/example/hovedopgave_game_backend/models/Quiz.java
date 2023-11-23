@@ -21,6 +21,7 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String question;
+    private String time;
 
     // Quizzes can have one spectator/winner
     @ManyToOne
