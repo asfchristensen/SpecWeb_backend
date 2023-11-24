@@ -44,6 +44,4 @@ public class Quiz {
 
     private List<Answer> answers = new ArrayList<>();
 
-
-
 }
