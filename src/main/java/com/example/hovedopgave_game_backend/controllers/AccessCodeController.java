@@ -26,6 +26,8 @@ public class AccessCodeController {
         return ResponseEntity.ok(accessCodeService.findAll());
     }
 
+
+
     @PutMapping("/{tokenId}")
     public ResponseEntity updateAccessCode(@RequestBody AccessCode accessCode, @PathVariable("tokenId") String tokenId) {
         Optional<Spectator> spectator = spectatorService.findByTokenId(tokenId);

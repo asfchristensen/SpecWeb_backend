@@ -61,6 +61,9 @@ public class QuizController {
             if (newQuiz.getState() != null){
                 oldQuiz.setState(newQuiz.getState());
             }
+            if (newQuiz.getTime() != null){
+                oldQuiz.setTime(newQuiz.getTime());
+            }
             quizService.save(oldQuiz);
             return new ResponseEntity(oldQuiz, HttpStatus.OK);
         } else {

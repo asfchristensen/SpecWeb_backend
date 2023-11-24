@@ -1,9 +1,10 @@
 package com.example.hovedopgave_game_backend.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
 import lombok.*;
+
+
 
 @Getter
 @Setter
@@ -23,6 +24,7 @@ public class AccessCode {
     @JoinColumn(name = "competition_id")
     private Competition competition;
 
+    // Many access code to one spectator
     @ManyToOne
     @JoinColumn(name = "spectator_id")
     private Spectator spectator;
