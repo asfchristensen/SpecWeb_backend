@@ -87,4 +87,11 @@ public class QuizController {
         }
         return ResponseEntity.ok(message);
     }
+
+    @GetMapping("guesses/{id}")
+    public ResponseEntity getGuesses(@PathVariable ("id") long id){
+        Optional<Quiz> quiz = quizService.findById(id);
+        Map<String, Integer> map = quizService.getGuessMapForQuiz(quiz);
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
 }

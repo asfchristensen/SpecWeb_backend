@@ -33,6 +33,7 @@ public class Spectator {
 
 
     @OneToMany(mappedBy = "spectator")
+    @JsonIgnore
     private List<Guesses> guesses = new ArrayList<>();
 
 }

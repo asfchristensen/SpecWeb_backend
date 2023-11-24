@@ -21,11 +21,9 @@ public class Guesses {
 
     @ManyToOne
     @JoinColumn(name = "spectator_id")
-    @JsonIgnore
     private Spectator spectator;
 
     @ManyToOne
     @JoinColumn(name = "answer_id")
-    @JsonIgnore
     private Answer answer;
 }

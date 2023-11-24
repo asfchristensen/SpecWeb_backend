@@ -1,6 +1,7 @@
 package com.example.hovedopgave_game_backend.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -41,7 +42,6 @@ public class Quiz {
 
     // One Quiz can have many answers
     @OneToMany(mappedBy = "quiz")
-
     private List<Answer> answers = new ArrayList<>();
 
 }
