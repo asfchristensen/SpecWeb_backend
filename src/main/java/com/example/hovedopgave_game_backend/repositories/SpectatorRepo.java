@@ -8,5 +8,4 @@ import java.util.Optional;
 
 public interface SpectatorRepo extends JpaRepository <Spectator, Long> {
     Optional<Spectator> findByTokenId(String tokenId);
-
 }
