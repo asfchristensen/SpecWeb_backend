@@ -27,17 +27,19 @@ public class AccessCodeController {
     }
 
     @PutMapping("/{tokenId}")
-    public ResponseEntity updateAccessCode(@RequestBody AccessCode accessCode, @PathVariable("tokenId") String subID) {
-        Optional<Spectator> spectator = spectatorService.findByTokenId(subID);
-        Optional<AccessCode> accessCodeToUpdate = accessCodeService.findById(accessCode.getId());
+    public ResponseEntity updateAccessCode(@RequestBody AccessCode accessCode, @PathVariable("tokenId") String tokenId) {
+        Optional<Spectator> spectator = spectatorService.findByTokenId(tokenId);
+        AccessCode accessCodeToUpdate = accessCodeService.findById(accessCode.getId())
+                .orElseThrow(() -> new RuntimeException("AccessCode not found for ID: " + accessCode.getId()));
 
-        if (spectator.isPresent() && accessCodeToUpdate.isPresent()) {
-            accessCodeToUpdate.get().setSpectator(accessCode.getSpectator());
-            accessCodeToUpdate.get().setActivated(accessCode.isActivated());
-            accessCodeService.save(accessCodeToUpdate.get());
-            return new ResponseEntity<>(accessCodeToUpdate, HttpStatus.OK);
+        if (spectator.isPresent()) {
+            Spectator spectatorToSet = spectator.get();
+            accessCodeToUpdate.setSpectator(spectatorToSet);
+            accessCodeToUpdate.setActivated(accessCode.isActivated());
+            accessCodeService.save(accessCodeToUpdate);
+            return new ResponseEntity(accessCodeToUpdate, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
 }
