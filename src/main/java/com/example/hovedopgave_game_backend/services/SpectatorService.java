@@ -37,4 +37,9 @@ public class SpectatorService implements ISpectatorService {
     public Optional<Spectator> findById(Long id) {
         return spectatorRepo.findById(id);
     }
+
+    @Override
+    public Optional<Spectator> findByTokenId(String tokenId) {
+        return spectatorRepo.findByTokenId(tokenId);
+    }
 }

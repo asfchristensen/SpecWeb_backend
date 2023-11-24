@@ -18,6 +18,19 @@ public class SpectatorController {
     @Autowired
     private SpectatorService spectatorService;
 
+    @PostMapping("/create")
+    public ResponseEntity createUser(@RequestBody Spectator spectator){
+        Optional<Spectator> checkSpectator = spectatorService.findByTokenId(spectator.getTokenId());
+        if(checkSpectator.isEmpty()){
+            System.out.println("Spectator findes ikke og oprettes");
+            spectatorService.save(spectator);
+            return new ResponseEntity<>("spectator oprettet = " + spectator, HttpStatus.CREATED);
+        } else {
+            System.out.println("Spectator findes og oprettes ikke");
+            return new ResponseEntity<>("Spectator findes og oprettes ikke", HttpStatus.OK);
+        }
+    }
+
     @GetMapping
     public ResponseEntity getAll(){
         return ResponseEntity.ok(spectatorService.findAll());

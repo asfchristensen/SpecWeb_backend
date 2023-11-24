@@ -1,5 +1,7 @@
 package com.example.hovedopgave_game_backend.configuration;
 
+import com.example.hovedopgave_game_backend.services.SpectatorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,33 +30,33 @@ public class WebSecurityConfig {
 
         httpSecurity
             .authorizeHttpRequests(registry -> registry
-                        .requestMatchers("/spectator/**").hasRole("user")
-                        //.requestMatchers("/organizer/**").hasRole("organizer")
-                        .anyRequest().permitAll()
-                )
-                .oauth2ResourceServer(oauth2Configurer -> oauth2Configurer.jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwt -> {
-                    //jwt = jason web token - getclaim - claims the key value
-                    Map<String, Collection<String>> realmAccess = jwt.getClaim("realm_access");
-                    //the roles a token contain
-                    Collection<String> roles = realmAccess.get("roles");
+                .requestMatchers("/spectator/**").hasRole("user")
+                .requestMatchers("/organizer/**").hasRole("organizer")
+                .anyRequest().authenticated()
+            )
+            .oauth2ResourceServer(oauth2Configurer -> oauth2Configurer.jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwt -> {
+                //jwt = jason web token - getclaim - claims the key value
+                Map<String, Collection<String>> realmAccess = jwt.getClaim("realm_access");
+                //the roles a token contain
+                Collection<String> roles = realmAccess.get("roles");
 
-                    //list of roles with ROLE_ as prefix
-                    List<SimpleGrantedAuthority> grantedAuthorities = roles.stream()
-                            .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
-                            .toList();
+                //list of roles with ROLE_ as prefix
+                List<SimpleGrantedAuthority> grantedAuthorities = roles.stream()
+                    .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                    .toList();
 
-                    //id to be saved in the DB
-                    //String id = jwt.getClaim("sid");
-                    //System.out.println("ID from token " + id);
+                //id to be saved in the DB
+                //String id = jwt.getClaim("sid");
+                //System.out.println("ID from token " + id);
 
-                    String token = jwt.getTokenValue();
-                    System.out.println("access token " + token);
+                String token = jwt.getTokenValue();
+                System.out.println("access token " + token);
 
-                    String subID = jwt.getClaim("sub");
-                    System.out.println("Specific user id " + subID);
+                String subID = jwt.getClaim("sub");
+                System.out.println("Specific user id " + subID);
 
-                    return new JwtAuthenticationToken(jwt, grantedAuthorities);
-                })));
+                return new JwtAuthenticationToken(jwt, grantedAuthorities);
+            })));
         httpSecurity.cors();
         //returns the SecurityFilterChain
         return httpSecurity.build();
