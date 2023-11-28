@@ -1,5 +1,6 @@
 package com.example.hovedopgave_game_backend.controllers;
 
+import com.example.hovedopgave_game_backend.models.Organizer;
 import com.example.hovedopgave_game_backend.models.Spectator;
 import com.example.hovedopgave_game_backend.services.SpectatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,17 @@ public class SpectatorController {
             message.put("Message", "Failed to created Spectator: " + spectator);
         }
         return ResponseEntity.ok(message);
+    }
+
+    @GetMapping("/token/{tokenId}")
+    public ResponseEntity findByTokenId(@PathVariable("tokenId") String tokenId){
+        Optional<Spectator> spectator = spectatorService.findByTokenId(tokenId);
+        if (spectator.isPresent()) {
+            return new ResponseEntity<>(spectator.get().getId(), HttpStatus.OK);
+        } else {
+            System.out.println("No Spectator found with id: " + tokenId);
+            return new ResponseEntity<>("No Spectator found", HttpStatus.BAD_REQUEST);
+        }
     }
 
 
