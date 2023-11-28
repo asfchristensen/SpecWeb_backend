@@ -1,16 +1,16 @@
 package com.example.hovedopgave_game_backend.services;
 
+import com.example.hovedopgave_game_backend.models.Answer;
+import com.example.hovedopgave_game_backend.models.Guesses;
 import com.example.hovedopgave_game_backend.models.Quiz;
+import com.example.hovedopgave_game_backend.models.Spectator;
 import com.example.hovedopgave_game_backend.repositories.QuizRepo;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -56,7 +56,6 @@ public class QuizService implements IQuizService {
         for (int i = 0; i < quiz.get().getAnswers().size(); i++) {
             guesses = guesses + quiz.get().getAnswers().get(i).getGuesses().size();
             if (quiz.get().getAnswers().get(i).isCorrect()){
-                System.out.println("rigtigt");
                 correctGuesses = correctGuesses + quiz.get().getAnswers().get(i).getGuesses().size();
             }
         }
@@ -64,8 +63,21 @@ public class QuizService implements IQuizService {
         map.put("CorrectGuesses",correctGuesses);
         map.put("Guesses", guesses);
 
-        System.out.println( "gæt = " + guesses + ", korrekte gæt = " + correctGuesses);
-
         return map;
+    }
+
+    public List<Spectator> getSpectatorsWithCorrectGuess(Optional<Quiz> quiz){
+        List<Spectator> spectators = new ArrayList<>();
+
+        for (Answer answer :quiz.get().getAnswers()) {
+            if (answer.isCorrect()){
+                for (Guesses guesses: answer.getGuesses()) {
+                    if (!spectators.contains(guesses.getSpectator())){
+                        spectators.add(guesses.getSpectator());
+                    }
+                }
+            }
+        }
+        return spectators;
     }
 }
