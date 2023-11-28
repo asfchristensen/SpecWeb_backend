@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "answers")
@@ -21,5 +24,9 @@ public class Answer {
     @JsonBackReference
     private Quiz quiz;
 
+
+    @OneToMany(mappedBy = "answer")
+    @JsonIgnore
+    private List<Guesses> guesses = new ArrayList<>();
 
 }

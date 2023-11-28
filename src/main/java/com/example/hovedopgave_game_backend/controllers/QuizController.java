@@ -1,15 +1,20 @@
 package com.example.hovedopgave_game_backend.controllers;
 
+import com.example.hovedopgave_game_backend.models.Answer;
 import com.example.hovedopgave_game_backend.models.Quiz;
+import com.example.hovedopgave_game_backend.models.Spectator;
 import com.example.hovedopgave_game_backend.services.QuizService;
+import com.example.hovedopgave_game_backend.services.SpectatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -17,6 +22,9 @@ import java.util.Optional;
 public class QuizController {
     @Autowired
     private QuizService quizService;
+
+    @Autowired
+    private SpectatorService spectatorService;
 
 
     @GetMapping()
@@ -83,4 +91,23 @@ public class QuizController {
         }
         return ResponseEntity.ok(message);
     }
+
+    @GetMapping("guesses/{id}")
+    public ResponseEntity getGuesses(@PathVariable ("id") long id){
+        Optional<Quiz> quiz = quizService.findById(id);
+        Map<String, Integer> map = quizService.getGuessMapForQuiz(quiz);
+        return new ResponseEntity(map, HttpStatus.OK);
+    }
+
+    @GetMapping("winner/{id}")
+    public ResponseEntity getWinner(@PathVariable ("id") long id){
+        System.out.println("ID = " + id);
+        Optional<Quiz> quiz = quizService.findById(id);
+        List<Spectator> spectators = quizService.getSpectatorsWithCorrectGuess(quiz);
+        Spectator winner = spectatorService.getRandomSpecator(spectators);
+        quiz.get().setSpectator(winner);
+        quizService.save(quiz.get());
+        return new ResponseEntity(winner, HttpStatus.OK);
+    }
+
 }
