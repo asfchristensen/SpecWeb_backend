@@ -26,6 +26,19 @@ public class AccessCodeController {
         return ResponseEntity.ok(accessCodeService.findAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity getBySpectator(@PathVariable long id){
+        Optional<Spectator> spectator = spectatorService.findById(id);
+
+        if (spectator.isPresent()){
+            Spectator newSpectator = new Spectator();
+            newSpectator.setId(id);
+            return new ResponseEntity(accessCodeService.getBySpectator(newSpectator), HttpStatus.OK);
+        } else {
+            return new ResponseEntity("No spectator with id " + id, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
 
     @PutMapping("/{tokenId}")

@@ -1,6 +1,7 @@
 package com.example.hovedopgave_game_backend.services;
 
 import com.example.hovedopgave_game_backend.models.AccessCode;
+import com.example.hovedopgave_game_backend.models.Spectator;
 import com.example.hovedopgave_game_backend.repositories.AccessCodeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,10 @@ public class AccessCodeService implements IAccessCodeService {
     @Override
     public Optional<AccessCode> findById(Long id) {
         return accessCodeRepo.findById(id);
+    }
+
+    @Override
+    public AccessCode getBySpectator(Spectator spectator) {
+        return accessCodeRepo.getBySpectator(spectator);
     }
 }
