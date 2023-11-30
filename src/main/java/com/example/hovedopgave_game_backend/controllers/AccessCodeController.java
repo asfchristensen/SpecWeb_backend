@@ -28,6 +28,7 @@ public class AccessCodeController {
 
 
 
+
     @PutMapping("/{tokenId}")
     public ResponseEntity updateAccessCode(@RequestBody AccessCode accessCode, @PathVariable("tokenId") String tokenId) {
         Optional<Spectator> spectator = spectatorService.findByTokenId(tokenId);
