@@ -104,10 +104,14 @@ public class QuizController {
         System.out.println("ID = " + id);
         Optional<Quiz> quiz = quizService.findById(id);
         List<Spectator> spectators = quizService.getSpectatorsWithCorrectGuess(quiz);
-        Spectator winner = spectatorService.getRandomSpecator(spectators);
-        quiz.get().setSpectator(winner);
-        quizService.save(quiz.get());
-        return new ResponseEntity(winner, HttpStatus.OK);
+        if(!spectators.isEmpty()){
+            Spectator winner = spectatorService.getRandomSpecator(spectators);
+            quiz.get().setSpectator(winner);
+            quizService.save(quiz.get());
+            return new ResponseEntity(winner, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

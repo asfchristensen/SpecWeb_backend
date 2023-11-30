@@ -39,4 +39,8 @@ public class GuessesService implements IGuessesService{
     }
 
 
+    @Override
+    public List<Guesses> findBySpectatorId(long specId) {
+        return guessesRepo.findBySpectatorId(specId);
+    }
 }

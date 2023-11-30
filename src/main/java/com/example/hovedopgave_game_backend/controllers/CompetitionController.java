@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @CrossOrigin
 @RestController
-@RequestMapping("organizer/competitions")
+//@RequestMapping("competitions")
 public class CompetitionController {
     private CompetitionService competitionService;
     private OrganizerService organizerService;
@@ -27,12 +27,12 @@ public class CompetitionController {
         this.organizerService = organizerService;
     }
 
-    @GetMapping
+    @GetMapping("/organizer/competitions")
     public ResponseEntity getAll(){
         return ResponseEntity.ok(this.competitionService.findAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/spectator/competitions/{id}")
     public ResponseEntity getByID(@PathVariable("id") long id){
         Optional<Competition> competition = competitionService.findById(id);
         if (competition.isPresent()) {
@@ -42,7 +42,7 @@ public class CompetitionController {
             return new ResponseEntity<>("No Competition found", HttpStatus.BAD_REQUEST);
         }
     }
-    @GetMapping("/token-id/{tokenId}")
+    @GetMapping("/organizer/competitions/{tokenId}")
     public ResponseEntity getByTokenID(@PathVariable("tokenId") String tokenId){
 
         Optional<Organizer> organizer = organizerService.findByTokenId(tokenId);
@@ -56,7 +56,7 @@ public class CompetitionController {
         }
     }
 
-    @PostMapping()
+    @PostMapping("/organizer/competitions")
     public ResponseEntity create(@RequestBody Competition competition){
         Map<String, String> message = new HashMap<>();
         if (competition != null){
