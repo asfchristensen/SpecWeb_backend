@@ -33,6 +33,7 @@ public class AccessCodeController {
         if (spectator.isPresent()){
             Spectator newSpectator = new Spectator();
             newSpectator.setId(id);
+            System.out.println("k");
             return new ResponseEntity(accessCodeService.getBySpectator(newSpectator), HttpStatus.OK);
         } else {
             return new ResponseEntity("No spectator with id " + id, HttpStatus.BAD_REQUEST);

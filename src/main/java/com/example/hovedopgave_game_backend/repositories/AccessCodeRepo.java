@@ -10,5 +10,4 @@ import java.util.Optional;
 
 public interface AccessCodeRepo extends JpaRepository <AccessCode, Long> {
     AccessCode getBySpectator(Spectator spectator);
-
 }
