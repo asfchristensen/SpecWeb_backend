@@ -30,7 +30,7 @@ public class GuessesController {
             guessesService.save(guesses);
             return new ResponseEntity<>(guesses, HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>("Failed to create Quiz: ", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Failed to create Guess: ", HttpStatus.BAD_REQUEST);
         }
     }
 

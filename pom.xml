@@ -138,7 +138,7 @@
           </excludes>
         </configuration>
       </plugin>
-      
+
       <!-- start JaCoCo -->
       <plugin>
         <groupId>org.jacoco</groupId>

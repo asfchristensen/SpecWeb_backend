@@ -36,4 +36,8 @@ public class Spectator {
     @JsonIgnore
     private List<Guesses> guesses = new ArrayList<>();
 
+    @OneToMany(mappedBy = "spectator")
+    @JsonIgnore
+    private List<Breaks> breaks = new ArrayList<>();
+
 }
