@@ -15,10 +15,10 @@
       <column name="rule_txt" type="varchar(255)">
         <constraints nullable="true"/>
       </column>
-      <column name="rule_image" type="blob">
+      <column name="rule_image" type="bytea">
         <constraints nullable="true"/>
       </column>
-      <column name="rule_video" type="blob">
+      <column name="rule_video" type="bytea">
         <constraints nullable="true"/>
       </column>
     </createTable>
