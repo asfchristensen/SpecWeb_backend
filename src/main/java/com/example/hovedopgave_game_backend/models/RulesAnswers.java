@@ -25,6 +25,7 @@ public class RulesAnswers {
     @Column(name = "is_correct")
     private boolean isCorrect;
     private int point;
+    private String explanation;
 
     @ManyToOne
     @JoinColumn(name = "rule_id")

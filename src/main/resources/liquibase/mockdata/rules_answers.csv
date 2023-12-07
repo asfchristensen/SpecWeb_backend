@@ -22,7 +22,7 @@ id,answer,is_correct,point,rule_id,explanation
 21,When the climber touches the wall ,false,7,6,
 22,Only when the zone is reached,false,4,6,
 23,When the climber thinks a real attempt has been made,false,1,6,
-24,When both feet lift off the mattress,true,10,6,"If a climber touches the wall and both feet a lifted off the mattress, then it is recorded as an attempt. So if only one feet is lifted, then it doesn't count as an attempt."
+24,When both feet lift off the mattress,true,10,6,"If a climber touches the wall and both feet are lifted off the mattress, then it is recorded as an attempt. So if only one feet is lifted, then it doesn't count as an attempt."
 25,Max. 5-10 attempts ,false,4,7,
 26,Max. 3-4 attempts ,false,7,7,
 27,As many as they want within a fixed time-slot,true,10,7,"This changes from competition to competition. Usually the average time is set to 5 minutes in total, and within that time, they can use as many attempts as they want. "
