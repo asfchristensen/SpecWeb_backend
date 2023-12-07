@@ -1,7 +1,6 @@
 package com.example.hovedopgave_game_backend.services;
 
 import com.example.hovedopgave_game_backend.models.Competition;
-import com.example.hovedopgave_game_backend.models.Quiz;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -9,43 +8,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class DropTableService {
     @Autowired
     private CompetitionService competitionService;
-    @Autowired
-    private QuizService quizService;
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Scheduled(cron = "0 0 */3 * * *") // Execute every 3 hours
-    @Transactional
+    @Scheduled(fixedRate = 24*60*60*1000) // Execute every 1day
+    @Transactional //
     public void dropOldTables() {
 
         List<Competition> competitions = competitionService.findAll();
-        List<Quiz> quizzes = quizService.findAll();
-        LocalDate date = LocalDate.now();
-
+        LocalDate date = LocalDate.now(); // = fx - 2023-12-07
         for (Competition competition:competitions) {
-            System.out.println("Timestamp convert: " + Timestamp.parse(competition.getEndDate()));
-            System.out.println("Todays Date: " + Timestamp.parse(competition.getEndDate()));
-
-            //if (LocalDate.parse(competition.getEndDate()).dat < date)
-
+            LocalDate competitionEndDate = LocalDate.parse(competition.getEndDate().substring(0,10)); // substring to get in localdate format yyyy-mm-dd
+            if (date.isAfter(competitionEndDate)){
+                //Delete quiz data form Quiz table with competition id
+                String deleteQuery = "DELETE FROM Quiz q WHERE q.competition.id = :compId";
+                entityManager.createQuery(deleteQuery)
+                      .setParameter("compId",competition.getId())
+                      .executeUpdate();
+            }
         }
 
-
-        // Drop tables older than 3 hours using JPQL
-        String jpql = "DELETE FROM YourEntity e WHERE e.createdAt < :threshold";
-        entityManager.createQuery(jpql)
-                .setParameter("threshold", LocalDateTime.now().minusHours(3))
-                .executeUpdate();
-    }
     }
 }
