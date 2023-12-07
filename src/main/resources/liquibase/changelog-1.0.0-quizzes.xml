@@ -37,8 +37,6 @@
                              unique="false"
                              deleteCascade="true"/>
             </column>
-
-
         </createTable>
     </changeSet>
 

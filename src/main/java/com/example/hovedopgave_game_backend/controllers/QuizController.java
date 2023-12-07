@@ -1,8 +1,8 @@
 package com.example.hovedopgave_game_backend.controllers;
 
-import com.example.hovedopgave_game_backend.models.Answer;
 import com.example.hovedopgave_game_backend.models.Quiz;
 import com.example.hovedopgave_game_backend.models.Spectator;
+import com.example.hovedopgave_game_backend.services.DropTableService;
 import com.example.hovedopgave_game_backend.services.QuizService;
 import com.example.hovedopgave_game_backend.services.SpectatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
-@RequestMapping("organizer/quizzes")
 public class QuizController {
     @Autowired
     private QuizService quizService;
@@ -26,13 +24,12 @@ public class QuizController {
     @Autowired
     private SpectatorService spectatorService;
 
-
     @GetMapping()
     public ResponseEntity getAll(){
         return ResponseEntity.ok(quizService.findAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/organizer/quizzes/{id}")
     public ResponseEntity getByID(@PathVariable("id") long id){
         Optional<Quiz> quiz = quizService.findById(id);
         if (quiz.isPresent()) {
@@ -42,12 +39,12 @@ public class QuizController {
             return new ResponseEntity<>("No Quiz found", HttpStatus.BAD_REQUEST);
         }
     }
-    @GetMapping("/competition/{compId}")
+    @GetMapping("/quizzes/competition/{compId}")
     public ResponseEntity getByCompetitionID(@PathVariable("compId") long compId){
         return ResponseEntity.ok(quizService.findAllByCompetitionId(compId));
     }
 
-    @PostMapping()
+    @PostMapping("/organizer/quizzes")
     public ResponseEntity create(@RequestBody Quiz quiz){
         System.out.println("quiz create: " + quiz.toString());
         if (quiz != null){
@@ -58,7 +55,7 @@ public class QuizController {
         }
     }
 
-    @PutMapping()
+    @PutMapping("/organizer/quizzes")
     public ResponseEntity updateQuiz(@RequestBody Quiz newQuiz){
         if(quizService.findById(newQuiz.getId()).isPresent()){
             Quiz oldQuiz = quizService.findById(newQuiz.getId()).get();
@@ -79,8 +76,8 @@ public class QuizController {
         }
     }
 
-    //quiz med tilhørende answers slettes
-    @DeleteMapping("/{id}")
+    //quiz and its answers gets deleted
+    @DeleteMapping("/organizer/quizzes/{id}")
     public ResponseEntity deleteQuiz(@PathVariable ("id") long id){
         Map<String, String> message = new HashMap<>();
         if(quizService.findById(id).isPresent()){
@@ -92,14 +89,14 @@ public class QuizController {
         return ResponseEntity.ok(message);
     }
 
-    @GetMapping("guesses/{id}")
+    @GetMapping("/organizer/quizzes/guesses/{id}")
     public ResponseEntity getGuesses(@PathVariable ("id") long id){
         Optional<Quiz> quiz = quizService.findById(id);
         Map<String, Integer> map = quizService.getGuessMapForQuiz(quiz);
         return new ResponseEntity(map, HttpStatus.OK);
     }
 
-    @GetMapping("winner/{id}")
+    @GetMapping("/organizer/quizzes/winner/{id}")
     public ResponseEntity getWinner(@PathVariable ("id") long id){
         System.out.println("ID = " + id);
         Optional<Quiz> quiz = quizService.findById(id);

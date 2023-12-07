@@ -1,0 +1,33 @@
+id,answer,is_correct,point,rule_id
+2,Chip,false,7,1
+1,Jug,true,10,1
+3,Makro,false,4,1
+4,Crimp,false,1,1
+5,En superhelt,false,1,2
+6,Når man klatrer et problem i første forsøg ,true,10,2
+7,Når man når zonen i første forsøg ,false,7,2
+8,Når man vinder sin første konkurrence ,false,4,2
+9,5 minutter ,true,10,3
+10,Under 5 minutter ,false,4,3
+11,Den hurtigste til at gennemføre sætter tids barren ,false,7,3
+12,Så lang tid de har brug for,false,1,3
+13,Når toppen er nået med begge hænder og positionen bibeholdes i 3 sekunder ,true,10,4
+14,Når toppen er nået med begge hænder ,false,7,4
+15,Når toppen er nået med én hånd,false,4,4
+16,Når zonen er nået ,false,1,4
+17,Dieder,false,7,5
+18,Slab,true,10,5
+19,Facevæg,false,4,5
+20,Arete,false,1,5
+21,Når klatreren rører ved væggen ,false,7,6
+22,Først når zonen er nået ,false,4,6
+23,Når klatreren mener der er gjort et reelt forsøg ,false,1,6
+24,Når begge fødder letter fra madrassen,true,10,6
+25,Maks. 5-10 forsøg ,false,4,7
+26,Maks. 3-4 forsøg ,false,7,7
+27,Så mange de vil indenfor et fikseret time-slot,true,10,7
+28,Så mange de vil  ,false,1,7
+29,Så få som muligt ,true,10,8
+30,Min. 30 forsøg,false,1,8
+31,Min. 20 forsøg ,false,4,8
+32,Under 10 forsøg ,false,7,8

@@ -27,5 +27,11 @@
 
         </createTable>
     </changeSet>
+
+  <!-- READ FORM MOCK DATA CSV FILE -->
+  <changeSet id="1.0.0-mocdata_guesses:spectator" author="team"  context="default">
+    <loadUpdateData tableName="guesses" primaryKey="id"
+                    file="liquibase/mockdata/guesses.csv"/>
+  </changeSet>
 </databaseChangeLog>
 
