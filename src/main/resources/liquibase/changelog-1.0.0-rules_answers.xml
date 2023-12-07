@@ -21,6 +21,10 @@
         <constraints nullable="false"/>
       </column>
 
+      <column name="explanation" type="varchar(255)" >
+        <constraints nullable="true"/>
+      </column>
+
       <column name="rule_id" type="integer">
         <constraints nullable="false"
                      foreignKeyName="fk_rule_id"
