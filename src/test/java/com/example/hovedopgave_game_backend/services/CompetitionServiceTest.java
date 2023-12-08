@@ -152,5 +152,8 @@ class CompetitionServiceTest {
 
         //tjekker at metoden returnere null, hvis den får en organizer id der ikke findes
         assertNull(badRequestCompetition);
+
+        //der bliver testet at de quizzes der bliver oprettet til competition, er blevet oprettet med de rigtige quizzes
+        assertIterableEquals(quizzes, quizList);
     }
 }
