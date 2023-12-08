@@ -1,19 +1,14 @@
 package com.example.hovedopgave_game_backend.controllers;
 
-import com.example.hovedopgave_game_backend.models.Competition;
-import com.example.hovedopgave_game_backend.models.Organizer;
-import com.example.hovedopgave_game_backend.services.CompetitionService;
-import com.example.hovedopgave_game_backend.services.OrganizerService;
+import com.example.hovedopgave_game_backend.models.*;
+import com.example.hovedopgave_game_backend.services.*;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @CrossOrigin
 @RestController

@@ -5,7 +5,6 @@ import com.example.hovedopgave_game_backend.models.Guesses;
 import com.example.hovedopgave_game_backend.models.Quiz;
 import com.example.hovedopgave_game_backend.models.Spectator;
 import com.example.hovedopgave_game_backend.repositories.QuizRepo;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +69,6 @@ class QuizServiceTest {
         Map<String, Integer> result = this.quizService.getGuessMapForQuiz(optionalQuiz);
 
         // Assert
-
         //tjekker den ikke er null
         assertNotNull(result);
         //tjekker at nøglen Guesses som metoden returnere har den korrekte værdi værdi på 3
