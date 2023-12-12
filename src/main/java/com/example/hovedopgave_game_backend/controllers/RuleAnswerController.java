@@ -1,17 +1,16 @@
 package com.example.hovedopgave_game_backend.controllers;
 
-import com.example.hovedopgave_game_backend.services.RulesAnswersService;
+import com.example.hovedopgave_game_backend.services.RuleAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping("spectator/ruleAnswers")
-public class RulesAnswersController {
-
+@RequestMapping("spectator/rule-answers")
+public class RuleAnswerController {
     @Autowired
-    private RulesAnswersService rulesAnswersService;
+    private RuleAnswerService rulesAnswersService;
 
     @GetMapping
     public ResponseEntity getAll(){

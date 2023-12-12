@@ -12,7 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity
 @Table(name = "breaks")
-public class Breaks {
+public class Break {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
@@ -23,6 +23,6 @@ public class Breaks {
 
     @ManyToOne
     @JoinColumn(name = "rules_answers_id")
-    private RulesAnswers rulesAnswers;
+    private RuleAnswer ruleAnswer;
 
 }

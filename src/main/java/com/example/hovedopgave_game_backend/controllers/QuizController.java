@@ -35,23 +35,48 @@ public class QuizController {
         if (quiz.isPresent()) {
             return new ResponseEntity<>(quiz.get(), HttpStatus.OK);
         } else {
-            System.out.println("No Quiz found with id: " + id);
-            return new ResponseEntity<>("No Quiz found", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No Quiz found with id " + id, HttpStatus.BAD_REQUEST);
         }
     }
-    @GetMapping("/quizzes/competition/{compId}")
+
+    @GetMapping("/spectator/quizzes/competition/{compId}")
     public ResponseEntity getByCompetitionID(@PathVariable("compId") long compId){
         return ResponseEntity.ok(quizService.findAllByCompetitionId(compId));
     }
 
+    @GetMapping("/organizer/quizzes/guesses/{id}")
+    public ResponseEntity getGuessesByQuizId(@PathVariable ("id") long id){
+        Optional<Quiz> quiz = quizService.findById(id);
+        if (quiz.isPresent()){
+            Map<String, Integer> map = quizService.getGuessMapForQuiz(quiz);
+            return new ResponseEntity(map, HttpStatus.OK);
+        } else {
+            return new ResponseEntity("No quiz with id " + id, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/organizer/quizzes/winner/{id}")
+    public ResponseEntity getWinner(@PathVariable ("id") long id){
+        Optional<Quiz> quiz = quizService.findById(id);
+
+        if(quiz.isPresent()){
+            List<Spectator> spectators = quizService.getSpectatorsWithCorrectGuess(quiz);
+            Spectator winner = spectatorService.getRandomSpecator(spectators);
+            quiz.get().setSpectator(winner);
+            quizService.save(quiz.get());
+            return new ResponseEntity(winner, HttpStatus.OK);
+        } else {
+            return new ResponseEntity("Failed to find quiz with id " + id, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("/organizer/quizzes")
     public ResponseEntity create(@RequestBody Quiz quiz){
-        System.out.println("quiz create: " + quiz.toString());
         if (quiz != null){
             quizService.save(quiz);
             return new ResponseEntity<>(quiz, HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>("Failed to create Quiz: ", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Failed to create Quiz: " + quiz, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -72,43 +97,18 @@ public class QuizController {
             quizService.save(oldQuiz);
             return new ResponseEntity(oldQuiz, HttpStatus.OK);
         } else {
-            return new ResponseEntity("not updated", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Failed to update quiz", HttpStatus.BAD_REQUEST);
         }
     }
 
     //quiz and its answers gets deleted
     @DeleteMapping("/organizer/quizzes/{id}")
     public ResponseEntity deleteQuiz(@PathVariable ("id") long id){
-        Map<String, String> message = new HashMap<>();
         if(quizService.findById(id).isPresent()){
             quizService.deleteById(id);
-            message.put("Message", "quiz deleted with id " + id );
+            return new ResponseEntity("Quiz deleted with id " + id, HttpStatus.OK);
         }else {
-            message.put("Message", "no quiz with id " + id );
-        }
-        return ResponseEntity.ok(message);
-    }
-
-    @GetMapping("/organizer/quizzes/guesses/{id}")
-    public ResponseEntity getGuesses(@PathVariable ("id") long id){
-        Optional<Quiz> quiz = quizService.findById(id);
-        Map<String, Integer> map = quizService.getGuessMapForQuiz(quiz);
-        return new ResponseEntity(map, HttpStatus.OK);
-    }
-
-    @GetMapping("/organizer/quizzes/winner/{id}")
-    public ResponseEntity getWinner(@PathVariable ("id") long id){
-        System.out.println("ID = " + id);
-        Optional<Quiz> quiz = quizService.findById(id);
-        List<Spectator> spectators = quizService.getSpectatorsWithCorrectGuess(quiz);
-        if(!spectators.isEmpty()){
-            Spectator winner = spectatorService.getRandomSpecator(spectators);
-            quiz.get().setSpectator(winner);
-            quizService.save(quiz.get());
-            return new ResponseEntity(winner, HttpStatus.OK);
-        } else {
-            return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Failed to delete quiz with id " + id, HttpStatus.BAD_REQUEST);
         }
     }
-
 }

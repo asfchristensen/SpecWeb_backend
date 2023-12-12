@@ -27,6 +27,6 @@ public class Answer {
 
     @OneToMany(mappedBy = "answer")
     @JsonIgnore
-    private List<Guesses> guesses = new ArrayList<>();
+    private List<Guess> guesses = new ArrayList<>();
 
 }

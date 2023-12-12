@@ -1,7 +1,7 @@
 package com.example.hovedopgave_game_backend.services;
 
 import com.example.hovedopgave_game_backend.models.Answer;
-import com.example.hovedopgave_game_backend.models.Guesses;
+import com.example.hovedopgave_game_backend.models.Guess;
 import com.example.hovedopgave_game_backend.models.Quiz;
 import com.example.hovedopgave_game_backend.models.Spectator;
 import com.example.hovedopgave_game_backend.repositories.QuizRepo;
@@ -71,9 +71,9 @@ public class QuizService implements IQuizService {
 
         for (Answer answer :quiz.get().getAnswers()) {
             if (answer.isCorrect()){
-                for (Guesses guesses: answer.getGuesses()) {
-                    if (!spectators.contains(guesses.getSpectator())){
-                        spectators.add(guesses.getSpectator());
+                for (Guess guess : answer.getGuesses()) {
+                    if (!spectators.contains(guess.getSpectator())){
+                        spectators.add(guess.getSpectator());
                     }
                 }
             }

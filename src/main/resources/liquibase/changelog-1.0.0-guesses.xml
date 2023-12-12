@@ -5,7 +5,7 @@
 
 
     <changeSet id="1.0.0:spectator:guesses_table" context="default" author="team">
-        <createTable tableName="guesses" remarks="spectators makes guesses when a quiz is guessable">
+        <createTable tableName="guesses" remarks="spectators makes guess when a quiz is guessable">
             <column name="id" type="serial">
                 <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>

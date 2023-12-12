@@ -29,26 +29,7 @@ public class OrganizerController {
         if (organizer.isPresent()) {
             return new ResponseEntity<>(organizer.get().getId(), HttpStatus.OK);
         } else {
-            System.out.println("No Organizer found with id: " + tokenId);
-            return new ResponseEntity<>("No Organizer found", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No Organizer found with id " + tokenId, HttpStatus.NOT_FOUND);
         }
     }
-
-
-
-
-    /*
-    @GetMapping("/{id}")
-    public ResponseEntity getByID(@PathVariable("id") long id){
-        Optional<Organizer> organizer = organizerService.findById(id);
-        if (organizer.isPresent()) {
-            return new ResponseEntity<>(organizer.get(), HttpStatus.OK);
-        } else {
-            System.out.println("No Organizer found with id: " + id);
-            return new ResponseEntity<>("No Organizer found", HttpStatus.BAD_REQUEST);
-        }
-    }
-    */
-
-
 }

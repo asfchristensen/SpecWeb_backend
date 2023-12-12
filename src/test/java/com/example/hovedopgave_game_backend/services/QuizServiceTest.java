@@ -1,7 +1,7 @@
 package com.example.hovedopgave_game_backend.services;
 
 import com.example.hovedopgave_game_backend.models.Answer;
-import com.example.hovedopgave_game_backend.models.Guesses;
+import com.example.hovedopgave_game_backend.models.Guess;
 import com.example.hovedopgave_game_backend.models.Quiz;
 import com.example.hovedopgave_game_backend.models.Spectator;
 import com.example.hovedopgave_game_backend.repositories.QuizRepo;
@@ -35,9 +35,9 @@ class QuizServiceTest {
 
         Spectator spectator = new Spectator();
 
-        Guesses guesses1 = new Guesses();
-        Guesses guesses2 = new Guesses();
-        Guesses guesses3 = new Guesses();
+        Guess guess1 = new Guess();
+        Guess guess2 = new Guess();
+        Guess guess3 = new Guess();
 
         Answer correctAnswer1 = new Answer();
         Answer correctAnswer2 = new Answer();
@@ -45,19 +45,19 @@ class QuizServiceTest {
 
         //setter answers værdier
         correctAnswer1.setCorrect(true);
-        correctAnswer1.setGuesses(List.of(guesses1));
+        correctAnswer1.setGuesses(List.of(guess1));
         correctAnswer2.setCorrect(true);
-        correctAnswer2.setGuesses(List.of(guesses2));
+        correctAnswer2.setGuesses(List.of(guess2));
         incorrectAnswer.setCorrect(false);
-        incorrectAnswer.setGuesses(List.of(guesses3));
+        incorrectAnswer.setGuesses(List.of(guess3));
 
         //setter guesses værdier
-        guesses1.setSpectator(spectator);
-        guesses1.setAnswer(correctAnswer1);
-        guesses3.setSpectator(spectator);
-        guesses3.setAnswer(correctAnswer2);
-        guesses2.setSpectator(spectator);
-        guesses2.setAnswer(incorrectAnswer);
+        guess1.setSpectator(spectator);
+        guess1.setAnswer(correctAnswer1);
+        guess3.setSpectator(spectator);
+        guess3.setAnswer(correctAnswer2);
+        guess2.setSpectator(spectator);
+        guess2.setAnswer(incorrectAnswer);
 
         //setter quiz værdier
         List<Answer> answers = List.of(correctAnswer1, incorrectAnswer, correctAnswer2);
@@ -86,10 +86,10 @@ class QuizServiceTest {
         Spectator spectator1 = new Spectator();
         Spectator spectator2 = new Spectator();
 
-        Guesses guesses1 = new Guesses();
-        Guesses guesses2 = new Guesses();
-        Guesses guesses3 = new Guesses();
-        Guesses guesses4 = new Guesses();
+        Guess guess1 = new Guess();
+        Guess guess2 = new Guess();
+        Guess guess3 = new Guess();
+        Guess guess4 = new Guess();
 
         Answer correctAnswer1 = new Answer();
         Answer correctAnswer2 = new Answer();
@@ -98,26 +98,26 @@ class QuizServiceTest {
 
         //setter answers værdier
         correctAnswer1.setCorrect(true);
-        correctAnswer1.setGuesses(List.of(guesses1));
+        correctAnswer1.setGuesses(List.of(guess1));
 
         correctAnswer2.setCorrect(true);
-        correctAnswer2.setGuesses(List.of(guesses2));
+        correctAnswer2.setGuesses(List.of(guess2));
 
         incorrectAnswer.setCorrect(false);
-        incorrectAnswer.setGuesses(List.of(guesses3));
+        incorrectAnswer.setGuesses(List.of(guess3));
 
         correctAnswer3.setCorrect(true);
-        correctAnswer3.setGuesses(List.of(guesses4));
+        correctAnswer3.setGuesses(List.of(guess4));
 
         //setter guesses værdier
-        guesses1.setSpectator(spectator);
-        guesses1.setAnswer(correctAnswer1);
-        guesses3.setSpectator(spectator);
-        guesses3.setAnswer(correctAnswer2);
-        guesses2.setSpectator(spectator2);
-        guesses2.setAnswer(incorrectAnswer);
-        guesses4.setAnswer(correctAnswer3);
-        guesses4.setSpectator(spectator1);
+        guess1.setSpectator(spectator);
+        guess1.setAnswer(correctAnswer1);
+        guess3.setSpectator(spectator);
+        guess3.setAnswer(correctAnswer2);
+        guess2.setSpectator(spectator2);
+        guess2.setAnswer(incorrectAnswer);
+        guess4.setAnswer(correctAnswer3);
+        guess4.setSpectator(spectator1);
 
         Quiz quiz = new Quiz();
         //setter quiz værdier

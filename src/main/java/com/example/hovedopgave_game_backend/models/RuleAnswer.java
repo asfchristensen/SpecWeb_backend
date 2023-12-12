@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "rules_answers")
-public class RulesAnswers {
+public class RuleAnswer {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
@@ -32,9 +32,9 @@ public class RulesAnswers {
     @JsonBackReference
     private Rule rule;
 
-    @OneToMany(mappedBy = "rulesAnswers")
+    @OneToMany(mappedBy = "ruleAnswer")
     @JsonIgnore
-    private List<Breaks> breaks = new ArrayList<>();
+    private List<Break> aBreaks = new ArrayList<>();
 
 
 

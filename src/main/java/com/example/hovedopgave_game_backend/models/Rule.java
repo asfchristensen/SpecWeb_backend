@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.sql.Blob;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 @Getter
@@ -29,5 +27,5 @@ public class Rule {
     private byte[] ruleVideo;
 
     @OneToMany(mappedBy = "rule")
-    private List<RulesAnswers> rulesAnswers = new ArrayList<>();
+    private List<RuleAnswer> rulesAnswers = new ArrayList<>();
 }

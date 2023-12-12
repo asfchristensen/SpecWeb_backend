@@ -30,8 +30,7 @@ public class AnswerController {
         if (answer.isPresent()) {
             return new ResponseEntity<>(answer.get(), HttpStatus.OK);
         } else {
-            System.out.println("No Answer found with id: " + id);
-            return new ResponseEntity<>("No Answer found", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No Answer found with id " + id, HttpStatus.NOT_FOUND);
         }
     }
 
@@ -42,43 +41,53 @@ public class AnswerController {
 
     @PostMapping()
     public ResponseEntity createAnswer(@RequestBody Answer answer){
-        answerService.save(answer);
-        return new ResponseEntity(answer, HttpStatus.CREATED);
+        if (answer != null){
+            answerService.save(answer);
+            return new ResponseEntity<>(answer, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Failed to create answer: ", HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @PostMapping("answers")
+    @PostMapping("/answers")
     public ResponseEntity createAnswers(@RequestBody List<Answer> answers){
-        for (int i = 0; i < answers.size(); i++) {
-            answerService.save(answers.get(i));
+        if (answers.size() > 0){
+            for (Answer answer:answers) {
+                answerService.save(answer);
+            }
+            return new ResponseEntity(answers, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity("Failed to create answers", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity(answers, HttpStatus.CREATED);
     }
 
     @PutMapping()
     public ResponseEntity updateAnswersForAQuiz(@RequestBody List<Answer> answers){
         List<Answer> newAnswers = new ArrayList<>();
-        for (int i = 0; i < answers.size(); i++) {
-            Answer newAnswer = answers.get(i);
-            if(answerService.findById(newAnswer.getId()).isPresent()){
-                Answer oldAnswer = answerService.findById(newAnswer.getId()).get();
-                oldAnswer.setAnswer(newAnswer.getAnswer());
-                oldAnswer.setCorrect(newAnswer.isCorrect());
-                answerService.save(oldAnswer);
-                newAnswers.add(oldAnswer);
-            }
+
+        if (answers.size() > 0){
+            for (Answer answer:answers) {
+                Answer newAnswer = answer;
+                if (answerService.findById(newAnswer.getId()).isPresent()) {
+                    Answer oldAnswer = answerService.findById(newAnswer.getId()).get();
+                    oldAnswer.setAnswer(newAnswer.getAnswer());
+                    oldAnswer.setCorrect(newAnswer.isCorrect());
+                    answerService.save(oldAnswer);
+                    newAnswers.add(oldAnswer);
+                }
+            } return new ResponseEntity(newAnswers, HttpStatus.CREATED);
+        }else{
+            return new ResponseEntity("Failed to update answers", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity(newAnswers, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteAsnwer(@PathVariable ("id") long id){
-        Map<String, String> message = new HashMap<>();
         if(answerService.findById(id).isPresent()){
             answerService.deleteById(id);
-            message.put("Message", "answer deleted with id " + id );
+            return new ResponseEntity("Answer deleted with id" + id, HttpStatus.OK);
         }else {
-            message.put("Message", "no answer with id " + id );
+            return new ResponseEntity("Failed to find answer with id " + id, HttpStatus.NOT_FOUND);
         }
-        return ResponseEntity.ok(message);
     }
 }

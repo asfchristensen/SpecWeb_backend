@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @CrossOrigin
 @RestController
-@RequestMapping("spectator/access-code")
+@RequestMapping("spectator/access-codes")
 public class AccessCodeController {
     @Autowired
     private AccessCodeService accessCodeService;
@@ -29,23 +29,19 @@ public class AccessCodeController {
     @GetMapping("/{id}")
     public ResponseEntity getBySpectator(@PathVariable long id){
         Optional<Spectator> spectator = spectatorService.findById(id);
-
         if (spectator.isPresent()){
             Spectator newSpectator = new Spectator();
             newSpectator.setId(id);
-            System.out.println("k");
             return new ResponseEntity(accessCodeService.getBySpectator(newSpectator), HttpStatus.OK);
         } else {
-            return new ResponseEntity("No spectator with id " + id, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("No spectator with id " + id, HttpStatus.NOT_FOUND);
         }
     }
-
-
-
 
     @PutMapping("/{tokenId}")
     public ResponseEntity updateAccessCode(@RequestBody AccessCode accessCode, @PathVariable("tokenId") String tokenId) {
         Optional<Spectator> spectator = spectatorService.findByTokenId(tokenId);
+
         AccessCode accessCodeToUpdate = accessCodeService.findById(accessCode.getId())
                 .orElseThrow(() -> new RuntimeException("AccessCode not found for ID: " + accessCode.getId()));
 

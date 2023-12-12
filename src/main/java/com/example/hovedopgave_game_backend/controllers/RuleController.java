@@ -14,9 +14,8 @@ import java.util.Optional;
 
 @CrossOrigin
 @RestController
-@RequestMapping("spectator/rule")
+@RequestMapping("spectator/rules")
 public class RuleController {
-
     @Autowired
     private RuleService ruleService;
 
@@ -31,7 +30,7 @@ public class RuleController {
         if (rule.isPresent()) {
             return new ResponseEntity<>(rule.get(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("No Rule found", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Failed to finde rule with id " + id, HttpStatus.BAD_REQUEST);
         }
     }
 }

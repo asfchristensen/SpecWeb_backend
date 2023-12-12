@@ -34,10 +34,10 @@ public class Spectator {
 
     @OneToMany(mappedBy = "spectator")
     @JsonIgnore
-    private List<Guesses> guesses = new ArrayList<>();
+    private List<Guess> guesses = new ArrayList<>();
 
     @OneToMany(mappedBy = "spectator")
     @JsonIgnore
-    private List<Breaks> breaks = new ArrayList<>();
+    private List<Break> aBreaks = new ArrayList<>();
 
 }
