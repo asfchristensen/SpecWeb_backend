@@ -1,6 +1,5 @@
 package com.example.hovedopgave_game_backend.services;
 
-import com.example.hovedopgave_game_backend.models.Competition;
 import com.example.hovedopgave_game_backend.models.Organizer;
 import com.example.hovedopgave_game_backend.repositories.OrganizerRepo;
 import lombok.AllArgsConstructor;

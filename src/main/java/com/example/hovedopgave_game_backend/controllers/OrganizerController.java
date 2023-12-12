@@ -1,8 +1,6 @@
 package com.example.hovedopgave_game_backend.controllers;
 
-import com.example.hovedopgave_game_backend.models.Answer;
 import com.example.hovedopgave_game_backend.models.Organizer;
-import com.example.hovedopgave_game_backend.repositories.OrganizerRepo;
 import com.example.hovedopgave_game_backend.services.OrganizerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

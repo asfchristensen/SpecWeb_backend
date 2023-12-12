@@ -1,10 +1,7 @@
 package com.example.hovedopgave_game_backend.controllers;
 
-import com.example.hovedopgave_game_backend.models.Quiz;
 import com.example.hovedopgave_game_backend.models.Rule;
-import com.example.hovedopgave_game_backend.services.OrganizerService;
 import com.example.hovedopgave_game_backend.services.RuleService;
-import org.apache.tomcat.util.digester.Rules;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

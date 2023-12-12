@@ -1,7 +1,5 @@
 package com.example.hovedopgave_game_backend.configuration;
 
-import com.example.hovedopgave_game_backend.services.SpectatorService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,16 +42,6 @@ public class WebSecurityConfig {
                 List<SimpleGrantedAuthority> grantedAuthorities = roles.stream()
                     .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                     .toList();
-
-                //id to be saved in the DB
-                //String id = jwt.getClaim("sid");
-                //System.out.println("ID from token " + id);
-
-                String token = jwt.getTokenValue();
-                System.out.println("access token " + token);
-
-                String subID = jwt.getClaim("sub");
-                System.out.println("Specific user id " + subID);
 
                 return new JwtAuthenticationToken(jwt, grantedAuthorities);
             })));

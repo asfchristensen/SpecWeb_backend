@@ -2,8 +2,6 @@ package com.example.hovedopgave_game_backend.controllers;
 
 import com.example.hovedopgave_game_backend.models.*;
 import com.example.hovedopgave_game_backend.services.*;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.Produces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

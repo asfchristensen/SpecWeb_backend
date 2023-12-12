@@ -2,7 +2,6 @@ package com.example.hovedopgave_game_backend.controllers;
 
 import com.example.hovedopgave_game_backend.models.Quiz;
 import com.example.hovedopgave_game_backend.models.Spectator;
-import com.example.hovedopgave_game_backend.services.DropTableService;
 import com.example.hovedopgave_game_backend.services.QuizService;
 import com.example.hovedopgave_game_backend.services.SpectatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;

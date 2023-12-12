@@ -1,9 +1,6 @@
 package com.example.hovedopgave_game_backend.controllers;
 
 import com.example.hovedopgave_game_backend.models.Answer;
-import com.example.hovedopgave_game_backend.models.Quiz;
-import com.example.hovedopgave_game_backend.repositories.AnswerRepo;
-import com.example.hovedopgave_game_backend.repositories.StatesRepo;
 import com.example.hovedopgave_game_backend.services.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,7 +48,7 @@ public class AnswerController {
 
     @PostMapping("/answers")
     public ResponseEntity createAnswers(@RequestBody List<Answer> answers){
-        if (answers.size() > 0){
+        if (answers.isEmpty()){
             for (Answer answer:answers) {
                 answerService.save(answer);
             }
@@ -65,7 +62,7 @@ public class AnswerController {
     public ResponseEntity updateAnswersForAQuiz(@RequestBody List<Answer> answers){
         List<Answer> newAnswers = new ArrayList<>();
 
-        if (answers.size() > 0){
+        if (answers.isEmpty()){
             for (Answer answer:answers) {
                 Answer newAnswer = answer;
                 if (answerService.findById(newAnswer.getId()).isPresent()) {
