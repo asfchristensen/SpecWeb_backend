@@ -48,7 +48,7 @@ public class AnswerController {
 
     @PostMapping("/answers")
     public ResponseEntity createAnswers(@RequestBody List<Answer> answers){
-        if (answers.isEmpty()){
+        if (!answers.isEmpty()){
             for (Answer answer:answers) {
                 answerService.save(answer);
             }
@@ -62,7 +62,7 @@ public class AnswerController {
     public ResponseEntity updateAnswersForAQuiz(@RequestBody List<Answer> answers){
         List<Answer> newAnswers = new ArrayList<>();
 
-        if (answers.isEmpty()){
+        if (!answers.isEmpty()){
             for (Answer answer:answers) {
                 Answer newAnswer = answer;
                 if (answerService.findById(newAnswer.getId()).isPresent()) {
