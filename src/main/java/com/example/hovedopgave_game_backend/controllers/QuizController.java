@@ -104,7 +104,7 @@ public class QuizController {
     public ResponseEntity deleteQuiz(@PathVariable ("id") long id){
         if(quizService.findById(id).isPresent()){
             quizService.deleteById(id);
-            return new ResponseEntity("Quiz deleted with id " + id, HttpStatus.OK);
+            return new ResponseEntity(id, HttpStatus.OK);
         }else {
             return new ResponseEntity("Failed to delete quiz with id " + id, HttpStatus.BAD_REQUEST);
         }

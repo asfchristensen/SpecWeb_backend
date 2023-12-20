@@ -33,7 +33,7 @@ public class WebSecurityConfig {
                 .anyRequest().authenticated()
             )
             .oauth2ResourceServer(oauth2Configurer -> oauth2Configurer.jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwt -> {
-                //jwt = jason web token - getclaim - claims the key value
+                //jwt = json web token - getclaim - claims the key value
                 Map<String, Collection<String>> realmAccess = jwt.getClaim("realm_access");
                 //the roles a token contain
                 Collection<String> roles = realmAccess.get("roles");

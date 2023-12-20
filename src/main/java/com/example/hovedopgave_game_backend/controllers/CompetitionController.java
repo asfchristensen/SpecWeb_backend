@@ -49,7 +49,7 @@ public class CompetitionController {
     public ResponseEntity create(@RequestBody Competition competition){
         if (competition != null){
             competitionService.save(competition);
-            return new ResponseEntity("Competition created " + competition, HttpStatus.CREATED);
+            return new ResponseEntity(competition, HttpStatus.CREATED);
         } else {
             return new ResponseEntity("Failed to create competition " + competition, HttpStatus.BAD_REQUEST);
         }

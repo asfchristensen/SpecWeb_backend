@@ -82,7 +82,7 @@ public class AnswerController {
     public ResponseEntity deleteAsnwer(@PathVariable ("id") long id){
         if(answerService.findById(id).isPresent()){
             answerService.deleteById(id);
-            return new ResponseEntity("Answer deleted with id" + id, HttpStatus.OK);
+            return new ResponseEntity(id, HttpStatus.OK);
         }else {
             return new ResponseEntity("Failed to find answer with id " + id, HttpStatus.NOT_FOUND);
         }
