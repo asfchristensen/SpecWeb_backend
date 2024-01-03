@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @CrossOrigin
 @RestController
-@RequestMapping("states")
+@RequestMapping("spectator/states")
 public class StateController {
     @Autowired
     private StateService stateService;
@@ -27,10 +27,7 @@ public class StateController {
         if (state.isPresent()) {
             return new ResponseEntity<>(state.get(), HttpStatus.OK);
         } else {
-            System.out.println("No State found with id: " + id);
-            return new ResponseEntity<>("No State found", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Failed to find state with id " + id, HttpStatus.NOT_FOUND);
         }
     }
-
-
 }

@@ -14,5 +14,8 @@
     <include file="liquibase/changelog-1.0.0-answers.xml"/>
     <include file="liquibase/changelog-1.0.0-guesses.xml"/>
     <include file="liquibase/changelog-1.0.0-access_codes.xml"/>
+    <include file="liquibase/changelog-1.0.0-rules.xml"/>
+    <include file="liquibase/changelog-1.0.0-rules_answers.xml"/>
+    <include file="liquibase/changelog-1.0.0-breaks.xml"/>
 
 </databaseChangeLog>

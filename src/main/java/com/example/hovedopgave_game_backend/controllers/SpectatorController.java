@@ -6,14 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin
 @RestController
-@RequestMapping("spectators")
+@RequestMapping("spectator/spectators")
 public class SpectatorController {
     @Autowired
     private SpectatorService spectatorService;
@@ -29,34 +26,38 @@ public class SpectatorController {
         if (spectator.isPresent()) {
             return new ResponseEntity<>(spectator.get(), HttpStatus.OK);
         } else {
-            System.out.println("No Spectator found with id: " + id);
-            return new ResponseEntity<>("No Spectator found", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Failed to find spectator with id " + id, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/token/{tokenId}")
+    public ResponseEntity findByTokenId(@PathVariable("tokenId") String tokenId){
+        Optional<Spectator> spectator = spectatorService.findByTokenId(tokenId);
+        if (spectator.isPresent()) {
+            return new ResponseEntity<>(spectator.get().getId(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Failed to find spectator with token id " + tokenId, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity createUser(@RequestBody Spectator spectator){
+        Optional<Spectator> checkSpectator = spectatorService.findByTokenId(spectator.getTokenId());
+        if(checkSpectator.isEmpty()){
+            spectatorService.save(spectator);
+            return new ResponseEntity<>(spectator, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Spectator allready exist " + spectator, HttpStatus.OK);
         }
     }
 
     @PostMapping
     public ResponseEntity create(@RequestBody Spectator spectator){
-        Map<String, String> message = new HashMap<>();
         if (spectator != null){
             spectatorService.save(spectator);
-            message.put("Message", "Spectator is created " + spectator );
+            return new ResponseEntity(spectator, HttpStatus.CREATED);
         } else {
-            message.put("Message", "Failed to created Spectator: " + spectator);
+            return new ResponseEntity("Failed to create spectator " + spectator, HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok(message);
     }
-
-
-    // UPDATE USERNAME FOR TESTING with REPO not in service //
-    /*
-    @PutMapping("/{id}")
-    public ResponseEntity updateUsername(@PathVariable("id") long id, @RequestBody Spectator spectator){
-        Spectator findSpectatorToUpdate = spectatorRepo.findById(id).get();
-        findSpectatorToUpdate.setUsername(spectator.getUsername());
-        spectatorRepo.save(findSpectatorToUpdate);
-        return ResponseEntity.ok(findSpectatorToUpdate);
-    }
-     */
-
-
 }

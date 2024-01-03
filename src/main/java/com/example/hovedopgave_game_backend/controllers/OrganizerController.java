@@ -1,7 +1,6 @@
 package com.example.hovedopgave_game_backend.controllers;
 
 import com.example.hovedopgave_game_backend.models.Organizer;
-import com.example.hovedopgave_game_backend.repositories.OrganizerRepo;
 import com.example.hovedopgave_game_backend.services.OrganizerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +11,7 @@ import java.util.Optional;
 
 @CrossOrigin
 @RestController
-@RequestMapping("organizers")
+@RequestMapping("organizer/organizers")
 public class OrganizerController {
     @Autowired
     private OrganizerService organizerService;
@@ -22,15 +21,13 @@ public class OrganizerController {
         return ResponseEntity.ok(organizerService.findAll());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity getByID(@PathVariable("id") long id){
-        Optional<Organizer> organizer = organizerService.findById(id);
+    @GetMapping("/{tokenId}")
+    public ResponseEntity getByID(@PathVariable("tokenId") String tokenId){
+        Optional<Organizer> organizer = organizerService.findByTokenId(tokenId);
         if (organizer.isPresent()) {
-            return new ResponseEntity<>(organizer.get(), HttpStatus.OK);
+            return new ResponseEntity<>(organizer.get().getId(), HttpStatus.OK);
         } else {
-            System.out.println("No Organizer found with id: " + id);
-            return new ResponseEntity<>("No Organizer found", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No Organizer found with id " + tokenId, HttpStatus.NOT_FOUND);
         }
     }
-
 }

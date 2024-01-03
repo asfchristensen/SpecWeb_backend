@@ -1,52 +1,59 @@
 package com.example.hovedopgave_game_backend.controllers;
 
 import com.example.hovedopgave_game_backend.models.Competition;
+import com.example.hovedopgave_game_backend.models.Organizer;
 import com.example.hovedopgave_game_backend.services.CompetitionService;
+import com.example.hovedopgave_game_backend.services.OrganizerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping("competitions")
 public class CompetitionController {
+    @Autowired
     private CompetitionService competitionService;
 
-    public CompetitionController(CompetitionService competitionService) {
-        this.competitionService = competitionService;
-    }
+    @Autowired
+    private OrganizerService organizerService;
 
-    @GetMapping
+    @GetMapping("/organizer/competitions")
     public ResponseEntity getAll(){
         return ResponseEntity.ok(this.competitionService.findAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/spectator/competitions/{id}")
     public ResponseEntity getByID(@PathVariable("id") long id){
         Optional<Competition> competition = competitionService.findById(id);
         if (competition.isPresent()) {
             return new ResponseEntity<>(competition.get(), HttpStatus.OK);
         } else {
-            System.out.println("No competition found with id: " + id);
-            return new ResponseEntity<>("No Competition found", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No Competition found with id " + id, HttpStatus.NOT_FOUND);
+        }
+    }
+    @GetMapping("/organizer/competitions/{tokenId}")
+    public ResponseEntity getByTokenID(@PathVariable("tokenId") String tokenId){
+
+        Optional<Organizer> organizer = organizerService.findByTokenId(tokenId);
+        if (organizer.isPresent()) {
+            long organizerId = organizer.get().getId();
+            List<Competition> competitions = competitionService.getAllByOrganizer_Id(organizerId);
+            return new ResponseEntity<>(competitions, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("No Organizer found with token id " + tokenId, HttpStatus.NOT_FOUND);
         }
     }
 
-    @PostMapping
+    @PostMapping("/organizer/competitions")
     public ResponseEntity create(@RequestBody Competition competition){
-        Map<String, String> message = new HashMap<>();
         if (competition != null){
             competitionService.save(competition);
-            message.put("Message", "Competition is created " + competition );
+            return new ResponseEntity(competition, HttpStatus.CREATED);
         } else {
-            message.put("Message", "Failed to create Competition: " + competition);
+            return new ResponseEntity("Failed to create competition " + competition, HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok(message);
     }
-
-
 }

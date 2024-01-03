@@ -19,11 +19,16 @@
                              unique="false"
                              deleteCascade="true"/>
             </column>
-            <column name="is_activated" type="varchar(255)" >
+            <column name="spectator_id" type="integer">
+                <constraints nullable="true"
+                             foreignKeyName="fk_spectator_id"
+                             references="spectators(id)"
+                             unique="false"
+                             deleteCascade="true"/>
+            </column>
+            <column name="is_activated" type="boolean" >
                 <constraints/>
             </column>
-
-
         </createTable>
     </changeSet>
 
