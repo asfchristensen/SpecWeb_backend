@@ -1,14 +1,16 @@
 package com.example.hovedopgave_game_backend.services;
 
-import com.example.hovedopgave_game_backend.models.Competition;
 import com.example.hovedopgave_game_backend.models.Organizer;
 import com.example.hovedopgave_game_backend.repositories.OrganizerRepo;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@AllArgsConstructor
+@NoArgsConstructor
 @Service
 public class OrganizerService implements IOrganizerService {
     @Autowired
@@ -32,11 +34,16 @@ public class OrganizerService implements IOrganizerService {
     @Override
     public void deleteById(Long id) {
         organizerRepo.deleteById(id);
-
     }
 
     @Override
     public Optional<Organizer> findById(Long id) {
         return organizerRepo.findById(id);
+    }
+
+
+    @Override
+    public Optional<Organizer> findByTokenId(String tokenId) {
+        return organizerRepo.findByTokenId(tokenId);
     }
 }
